@@ -18,7 +18,7 @@ app.add_middleware(
 )
 
 # Load model once when server starts
-model = load_model("rps.keras")
+model = load_model("backend/rps.keras")
 
 # Classes in the same order used during training
 class_names = ["Paper", "Rock", "Scissor"]
