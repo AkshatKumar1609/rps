@@ -6,6 +6,7 @@ import io
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
 app = FastAPI()
 
@@ -38,7 +39,9 @@ async def predict(file: UploadFile = File(...)):
     image = image.resize((IMG_SIZE, IMG_SIZE))
 
     # Convert to numpy array
-    img_array = np.array(image).astype("float32") / 255.0
+    img = np.array(image)
+    img = img.astype(np.float32)
+    img_array = preprocess_input(img)
 
     # Add batch dimension
     img_array = np.expand_dims(img_array, axis=0)
